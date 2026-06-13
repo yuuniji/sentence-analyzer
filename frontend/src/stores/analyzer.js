@@ -15,7 +15,7 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   const currentRecordId = ref(null)
   const errorMessage = ref('')
   const selectedMode = ref('standard')
-  const selectedModel = ref('gemini-2.5-pro')
+  const selectedModel = ref('gemini-3.1-pro-preview')
   const availableModels = ref([])
   
   // 历史记录

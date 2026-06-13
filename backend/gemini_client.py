@@ -26,7 +26,7 @@ class GeminiClient:
             "max_output_tokens": 8192,
         },
         "pro": {
-            "model": "gemini-2.5-pro",
+            "model": "gemini-3.1-pro-preview",
             "temperature": 0.3,
             "top_p": 0.9,
             "max_output_tokens": 8192,
