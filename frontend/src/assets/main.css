@@ -108,8 +108,8 @@ button {
 .markdown-body {
   font-family: var(--font-ui);
   color: var(--color-carbon);
-  line-height: 1.6;
-  font-size: 15px; /* af 15px */
+  line-height: 1.7;
+  font-size: 15px;
 }
 
 /* Display Headings */
@@ -117,10 +117,10 @@ button {
   font-family: var(--font-display);
   color: var(--color-ink);
   line-height: 1.1;
-  letter-spacing: -0.02em; /* Tight tracking for Display */
+  letter-spacing: -0.02em;
   margin-top: 1.2em;
   margin-bottom: 0.5em;
-  font-variant-ligatures: none; /* "liga" 0 */
+  font-variant-ligatures: none;
 }
 
 .markdown-body h1 { font-size: 40px; }
@@ -128,12 +128,81 @@ button {
 .markdown-body h3 { font-size: 22px; }
 
 .markdown-body p {
+  margin-bottom: 0.9rem;
+}
+
+/* Section-header bold text (e.g. 寻找主干：, 梳理枝叶：) */
+.markdown-body strong {
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
+/* When <strong> is the first child of a <p>, treat it as a section sub-header */
+.markdown-body p > strong:first-child {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  margin-top: 0.4em;
+}
+
+/* Ordered & Unordered Lists */
+.markdown-body ol, .markdown-body ul {
+  padding-left: 1.2em;
   margin-bottom: 0.8rem;
 }
 
-.markdown-body strong {
+.markdown-body li {
+  margin-bottom: 0.4em;
+  line-height: 1.6;
+}
+
+.markdown-body li::marker {
+  color: var(--color-steel);
+}
+
+/* Blockquotes — subtle left accent bar */
+.markdown-body blockquote {
+  margin: 0.8rem 0;
+  padding: 8px 16px;
+  border-left: 3px solid var(--color-hudson-blue);
+  background: transparent;
+  color: var(--color-carbon);
+  font-size: 15px;
+}
+
+/* Horizontal rule — thin section divider */
+.markdown-body hr {
+  border: none;
+  border-top: 1px solid var(--color-sage);
+  margin: 1.2rem 0;
+}
+
+/* Inline code */
+.markdown-body code {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-sage);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 13px;
   color: var(--color-ink);
-  font-weight: 600;
+}
+
+/* Code blocks */
+.markdown-body pre {
+  background: var(--color-canvas);
+  border: 1px solid var(--color-sage);
+  border-radius: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  margin: 0.8rem 0;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 14px;
 }
 
 .markdown-body a {
