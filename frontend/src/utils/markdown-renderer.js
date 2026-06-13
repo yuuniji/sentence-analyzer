@@ -57,7 +57,8 @@ export function renderMarkdown(text) {
     let inner = p1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     inner = inner.replace(/\*(.*?)\*/g, '<em>$1</em>');
     inner = inner.replace(/`(.*?)`/g, '<code>$1</code>');
-    return `<summary>${inner}</summary>`;
+    // 使用 <span> 包裹，防止 Flex 的 space-between 布局导致元素被异常分离
+    return `<summary><span>${inner}</span></summary>`;
   });
 
   // 处理大模型可能将 `==` 错误放在 `::: tabs` 同一行的问题
