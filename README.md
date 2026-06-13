@@ -1,5 +1,7 @@
 # 英语长难句与口语智能解析评估平台 (Sentence & Spoken Analyzer) v3.0 终极版
 
+[![GitHub](https://img.shields.io/badge/GitHub-yuuniji-181717?style=flat-square&logo=github)](https://github.com/yuuniji)
+
 这是一个基于 Vue 3 和 Gemini 大模型的全栈应用。经过全新的 **v3.0 宏观、微观与口语三核引擎 (Triple-Engine)** 架构升级，本作已经从最初的语法拆解工具，正式进化为 **“全能型的 AI 英语伴读与口语评估导师”** 。
 
 该项目采用深色毛玻璃美学设计，支持通过 SSE（Server-Sent Events）实现长难句与篇章的流式打字机输出效果，并提供了一套极致优化过的“资深英语教授级”提示词工程和结构化 JSON 纠错模型。
@@ -92,14 +94,14 @@ sentence-analyzer/
 根据你的操作系统，选择以下 **任意一种** 方式配置环境：
 
 #### 方式 A：macOS 部署指南
-macOS 默认自带 Python 3.9+，建议使用包管理器 `Homebrew` 一键完成其余依赖安装：
+macOS 默认自带 Python 版本偏低，为了避免 Google SDK 兼容性警告，建议使用包管理器 `Homebrew` 部署 Python 3.11 及其他依赖：
 1. **安装 Homebrew** (如已安装可跳过):
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-2. **一键安装 Node.js、Poetry 包管理器与 Git**:
+2. **一键安装 Python 3.11、Node.js、Poetry 包管理器与 Git**:
    ```bash
-   brew install node poetry git
+   brew install python@3.11 node poetry git
    ```
 
 #### 方式 B：Windows 部署指南 (极简/避坑版)
@@ -157,10 +159,14 @@ cd sentence-analyzer
 ```
 
 #### 步骤 2.2：配置 API 凭证与网络代理 (重要)
-在项目根目录创建一个 `.env` 文件，并填入您的 Google Gemini API Key：
+在项目根目录复制 `.env.example` 模板并创建 `.env` 配置文件：
 ```bash
-# 创建并写入配置文件
-echo "GEMINI_API_KEY=AIzaSyYourApiKeyHere..." > .env
+# 复制配置模板
+cp .env.example .env
+```
+然后编辑 `.env` 文件，将其中的 `GEMINI_API_KEY` 替换为您真实的 Google Gemini API Key：
+```env
+GEMINI_API_KEY=AIzaSyYourApiKeyHere...
 ```
 > [!IMPORTANT]
 > **网络访问提示** ：由于 Gemini API 在中国大陆境内无法直接连接，你需要确保本地开发环境开启了科学上网代理（TUN 虚拟网卡模式或全局代理模式）。后端服务会自动读取系统环境变量中的代理配置（HTTP_PROXY/HTTPS_PROXY）。
@@ -170,6 +176,9 @@ echo "GEMINI_API_KEY=AIzaSyYourApiKeyHere..." > .env
 1. **安装后端 Python 依赖**:
    ```bash
    cd backend
+   # 指定使用 Python 3.11 (适用于 macOS/Windows。若 Linux 且系统默认 python3 为 3.10+，可直接跳过此步)
+   poetry env use python3.11
+   # 安装项目全部依赖
    poetry install
    cd ..
    ```
@@ -212,7 +221,7 @@ chmod +x start.sh
   ./start.sh
   ```
 
-运行成功后，直接在浏览器中访问 **`http://localhost:5173/`** 即可打开平台，开始分析长难句与录制口语评估！
+运行成功后，直接在浏览器中访问 **`http://localhost:5174/`** 即可打开平台，开始分析长难句与录制口语评估！
 
 ---
 
