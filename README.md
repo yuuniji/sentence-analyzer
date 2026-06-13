@@ -59,39 +59,70 @@ sentence-analyzer/
 
 ---
 
-## 🚀 运行指南
+## 🚀 运行指南 (全新环境极速部署)
 
-### 1. 环境准备
-- 后端需要 **Python 3.9+** 及 **Poetry** 包管理器。
-- 前端需要 **Node.js 18+**。
+如果未来你换了新的 MacBook，或者需要在全新的电脑上运行此项目，请严格按照以下步骤操作：
 
-### 2. 配置 API Key
-在项目根目录下创建一个 `.env` 文件（如果没有的话），并填入你的 Google Gemini API Key：
-```env
-GEMINI_API_KEY=AIzaSyYourApiKeyHere...
+### 0. 基础工具安装 (仅限全新 Mac)
+如果你的新电脑还没安装基础开发工具，请打开终端 (Terminal) 执行以下命令：
+
+```bash
+# 1. 安装 Homebrew (Mac 必备包管理器)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. 通过 Homebrew 安装 Node.js (前端环境) 和 Python (后端环境)
+brew install node python@3.11
+
+# 3. 安装后端所需的 Poetry (Python 依赖管理工具)
+curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-### 3. 安装依赖
-由于包含前后端两个项目，第一次运行前需分别安装依赖：
+### 1. 克隆项目到本地
 ```bash
-# 后端安装
-cd backend
-poetry install
+git clone https://github.com/yuuniji/sentence-analyzer.git
+cd sentence-analyzer
+```
 
-# 前端安装
-cd ../frontend
+### 2. 配置 API Key
+在项目根目录创建一个 `.env` 文件，并填入你的 Google Gemini API Key：
+```bash
+# 在终端中快速创建
+echo "GEMINI_API_KEY=AIzaSyYourApiKeyHere..." > .env
+```
+*(注意：千万不要把真实的 API Key 提交到 GitHub！项目中已经配置了 `.gitignore` 来忽略 `.env`)*
+
+### 3. 安装依赖
+
+**安装后端依赖：**
+```bash
+cd backend
+# 告诉 Poetry 使用系统安装的 Python 3.11
+poetry env use python3.11
+# 安装所有 Python 依赖
+poetry install
+cd ..
+```
+
+**安装前端依赖：**
+```bash
+cd frontend
+# 安装 Vue 及其相关前端依赖
 npm install
+cd ..
 ```
 
 ### 4. 一键启动
-回到项目根目录，运行启动脚本即可：
+回到项目根目录（`sentence-analyzer/`），赋予启动脚本执行权限并运行：
 ```bash
+# 赋予执行权限 (仅需执行一次)
 chmod +x start.sh
+
+# 一键启动前后端服务
 ./start.sh
 ```
-该脚本会自动在后台启动 FastAPI (端口 8000) 和 Vite (端口 5173)。启动后直接在浏览器中访问 `http://localhost:5173/` 即可使用。
+启动成功后，终端会打印出前后端的 PID。直接在浏览器中访问 `http://localhost:5173/` 即可尽情使用！
 
-*停止服务只需在终端按下 `Ctrl+C`。*
+*如需停止服务，直接在当前终端按下 `Ctrl+C` 即可自动关闭所有关联进程。如果遇到端口被占用的报错（`Address already in use`），可以运行 `lsof -ti :8000 | xargs kill -9` 和 `lsof -ti :5173 | xargs kill -9` 强行清理残留进程。*
 
 ---
 
