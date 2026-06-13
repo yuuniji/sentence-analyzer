@@ -22,14 +22,19 @@ class HistoryDB:
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
+            # 自动迁移：尝试添加 context 字段
+            try:
+                await db.execute('ALTER TABLE analysis_records ADD COLUMN context TEXT')
+            except aiosqlite.OperationalError:
+                pass # 字段可能已存在
             await db.commit()
 
-    async def save(self, sentence: str, output: str, mode: str) -> int:
+    async def save(self, sentence: str, output: str, mode: str, context: str = None) -> int:
         await self._init_db()
         async with aiosqlite.connect(DB_PATH) as db:
             cursor = await db.execute(
-                'INSERT INTO analysis_records (sentence, output, mode) VALUES (?, ?, ?)',
-                (sentence, output, mode)
+                'INSERT INTO analysis_records (sentence, output, mode, context) VALUES (?, ?, ?, ?)',
+                (sentence, output, mode, context)
             )
             await db.commit()
             return cursor.lastrowid

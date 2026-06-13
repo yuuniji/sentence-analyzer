@@ -1,12 +1,28 @@
 <template>
   <div class="glass-panel input-panel">
     <h2>句子输入</h2>
-    <textarea 
-      v-model="store.inputSentence" 
-      placeholder="请输入需要解析的英语长难句..."
-      rows="5"
-      :disabled="store.isStreaming"
-    ></textarea>
+    <details class="context-details">
+      <summary>添加上下文语境 (全景精读模式)</summary>
+      <textarea 
+        v-model="store.inputContext" 
+        placeholder="在此粘贴原著的整个段落或前后文，帮助大模型理解代词指代和特殊排版含义..."
+        rows="3"
+        class="context-input"
+        :disabled="store.isStreaming"
+      ></textarea>
+    </details>
+
+    <div class="input-wrapper">
+      <textarea 
+        v-model="store.inputSentence" 
+        placeholder="请输入需要解析的英语长难句..."
+        rows="4"
+        :disabled="store.isStreaming"
+      ></textarea>
+      <div class="hint-text">
+        💡 提示：保留书籍原文排版可提升解析精度，例如使用 <code>*斜体*</code> 或 <code>**加粗**</code>
+      </div>
+    </div>
     
     <div class="controls">
       <div class="options">
@@ -118,5 +134,63 @@ textarea:focus {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.context-details {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0;
+}
+.context-details summary {
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.context-details summary::after {
+  content: "▾";
+  transition: transform 0.2s;
+}
+.context-details[open] summary::after {
+  transform: rotate(180deg);
+}
+.context-details[open] summary {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+.context-input {
+  border: none;
+  border-radius: 0 0 8px 8px;
+  background: transparent;
+  padding: 16px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+.context-input:focus {
+  background: rgba(0,0,0,0.1);
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hint-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding-left: 4px;
+}
+.hint-text code {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--accent-hover);
 }
 </style>

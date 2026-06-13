@@ -95,7 +95,8 @@ async def analyze_sentence(request: AnalyzeRequest):
             record_id = await db.save(
                 sentence=request.sentence,
                 output=full_output,
-                mode=request.mode
+                mode=request.mode,
+                context=request.context
             )
             
             yield {"event": "done", "data": json.dumps({

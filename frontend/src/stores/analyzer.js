@@ -5,6 +5,7 @@ import axios from 'axios'
 export const useAnalyzerStore = defineStore('analyzer', () => {
   // 状态
   const inputSentence = ref('')
+  const inputContext = ref('')
   const outputMarkdown = ref('')
   const isStreaming = ref(false)
   const streamProgress = ref(0)
@@ -40,7 +41,8 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
         body: JSON.stringify({
           sentence: inputSentence.value,
           mode: selectedMode.value,
-          model: selectedModel.value
+          model: selectedModel.value,
+          context: inputContext.value || undefined
         })
       })
       
@@ -127,6 +129,7 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   
   function loadRecord(record) {
     inputSentence.value = record.sentence
+    inputContext.value = record.context || ''
     outputMarkdown.value = record.output
     currentRecordId.value = record.id
     selectedMode.value = record.mode || 'standard'
@@ -147,7 +150,7 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   }
   
   return {
-    inputSentence, outputMarkdown, isStreaming, streamProgress,
+    inputSentence, inputContext, outputMarkdown, isStreaming, streamProgress,
     currentRecordId, errorMessage, selectedMode, selectedModel,
     history, historyPage, historyTotal, availableModels,
     hasOutput, canAnalyze,
