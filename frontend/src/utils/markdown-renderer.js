@@ -49,6 +49,7 @@ md.use(MarkdownItContainer, 'tabpane', {
 });
 
 export function renderMarkdown(text) {
+  let processedText = text;
   // 彻底移除无意义的 <details>/<summary> 折叠
   // 用户已经在输入框看到了句子，不需要再折叠来折叠去
   processedText = processedText.replace(/<details[^>]*>/g, '');
