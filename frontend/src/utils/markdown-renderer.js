@@ -51,6 +51,15 @@ md.use(MarkdownItContainer, 'tabpane', {
 export function renderMarkdown(text) {
   // 确保 <summary> 和 ::: tabs 之间有空行，否则 markdown-it 不会解析内容
   let processedText = text.replace(/<\/summary>\s*:::/g, '</summary>\n\n:::');
+  
+  // 处理 <summary> 内部的简易 Markdown (因为 HTML 块内的内容默认不解析)
+  processedText = processedText.replace(/<summary>(.*?)<\/summary>/g, (match, p1) => {
+    let inner = p1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    inner = inner.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    inner = inner.replace(/`(.*?)`/g, '<code>$1</code>');
+    return `<summary>${inner}</summary>`;
+  });
+
   // 处理大模型可能将 `==` 错误放在 `::: tabs` 同一行的问题
   processedText = processedText.replace(/:::\s*tabs\s*==/g, '::: tabs\n==');
   let lines = processedText.split('\n');
