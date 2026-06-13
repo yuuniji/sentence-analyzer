@@ -118,34 +118,34 @@ onMounted(() => {
   gap: 16px;
 }
 
-/* Engine Tabs (Pill style) */
+/* Engine Tabs (Floating Pill Navigation) */
 .engine-tabs {
   display: flex;
-  background: var(--bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: 99px;
-  padding: 4px;
-  margin-bottom: 4px;
+  background: var(--color-surface-nav);
+  border-radius: var(--radius-pill);
+  padding: 6px;
+  gap: 4px;
+  width: fit-content;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow-nav);
 }
 .engine-tab {
-  flex: 1;
-  padding: 8px 16px;
+  padding: 6px 16px;
   background: transparent;
   border: none;
-  border-radius: 99px;
-  color: var(--text-secondary);
+  border-radius: var(--radius-pill);
+  color: #a5afaf;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 15px;
   transition: all 0.2s ease;
 }
 .engine-tab:hover {
-  color: var(--text-primary);
+  color: #ffffff;
 }
 .engine-tab.active {
-  background: var(--panel-bg);
-  color: var(--text-primary);
-  box-shadow: 0 1px 3px var(--shadow-color);
-  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: #171717;
+  box-shadow: var(--shadow-subtle);
 }
 
 /* Textareas */
@@ -156,20 +156,20 @@ onMounted(() => {
 }
 textarea {
   width: 100%;
-  background: var(--bg-color);
-  border: 1px solid var(--border-color);
+  background: var(--color-canvas);
+  border: 1px solid var(--color-sage);
   border-radius: 12px;
   padding: 16px;
-  color: var(--text-primary);
-  font-size: 1rem;
-  font-family: var(--font-sans);
+  color: var(--color-ink);
+  font-size: 15px;
+  font-family: var(--font-ui);
   resize: vertical;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 textarea:focus {
   outline: none;
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 1px var(--accent-blue);
+  border-color: var(--color-hudson-blue);
+  box-shadow: 0 0 0 1px var(--color-hudson-blue);
 }
 .main-textarea {
   font-size: 1.05rem;
@@ -183,26 +183,27 @@ textarea:focus {
   padding: 0 4px;
 }
 .hint-text {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  font-size: 13px;
+  color: var(--color-steel);
 }
 .hint-text code {
-  background: var(--border-color);
+  background: var(--color-canvas);
+  border: 1px solid var(--color-sage);
   padding: 2px 6px;
   border-radius: 4px;
   font-family: monospace;
-  color: var(--text-primary);
+  color: var(--color-ink);
 }
 .toggle-advanced-btn {
   background: transparent;
   border: none;
-  color: var(--text-muted);
-  font-size: 0.85rem;
+  color: var(--color-steel);
+  font-size: 13px;
   font-weight: 500;
   transition: color 0.2s;
 }
 .toggle-advanced-btn:hover {
-  color: var(--text-primary);
+  color: var(--color-ink);
 }
 
 /* Advanced Options */
@@ -211,20 +212,20 @@ textarea:focus {
   flex-direction: column;
   gap: 12px;
   padding: 16px;
-  background: var(--bg-color);
-  border: 1px dashed var(--border-color);
+  background: var(--color-canvas);
+  border: 1px dashed var(--color-sage);
   border-radius: 12px;
 }
 .advanced-field label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--color-steel);
   margin-bottom: 6px;
 }
 .advanced-field textarea {
   padding: 12px;
-  font-size: 0.95rem;
+  font-size: 15px;
 }
 
 /* Controls */
@@ -235,36 +236,38 @@ textarea:focus {
   margin-top: 8px;
 }
 .options select {
-  background: var(--bg-color);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  border: 1px solid var(--color-sage);
   padding: 8px 12px;
   border-radius: 8px;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 15px;
 }
 .options select:focus {
   outline: none;
-  border-color: var(--text-secondary);
+  border-color: var(--color-steel);
 }
+
+/* CTA Pill Button */
 .analyze-btn {
   padding: 10px 24px;
-  background: var(--text-primary);
-  color: var(--btn-text);
+  background: var(--color-surface-nav); /* Dark fill */
+  color: #ffffff;
   border: none;
-  border-radius: 99px;
-  font-weight: 600;
-  font-size: 0.95rem;
+  border-radius: var(--radius-btn);
+  font-weight: 500;
+  font-size: 15px;
   transition: all 0.2s;
 }
 .analyze-btn:hover:not(:disabled) {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: var(--shadow-nav);
 }
 .analyze-btn:disabled {
-  background: var(--border-color);
-  color: var(--text-muted);
+  background: var(--color-sage);
+  color: var(--color-steel);
   cursor: not-allowed;
 }
 

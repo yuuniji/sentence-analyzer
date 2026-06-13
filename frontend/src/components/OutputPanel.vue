@@ -65,24 +65,25 @@ h2 {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--accent-hover);
-  font-size: 0.9rem;
+  color: var(--color-hudson-blue);
+  font-size: 15px;
 }
 .copy-btn {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--bg-color);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--color-slate-cyan);
+  color: var(--color-slate-cyan);
   padding: 6px 12px;
-  border-radius: 8px;
-
-  font-size: 0.9rem;
+  border-radius: var(--radius-btn);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 .copy-btn:hover {
-  background: var(--border-light);
-  color: var(--text-primary);
+  background: var(--color-slate-cyan);
+  color: #ffffff;
 }
 .copy-btn.copied {
   background: rgba(16, 185, 129, 0.2);
@@ -92,7 +93,7 @@ h2 {
 .dot {
   width: 8px;
   height: 8px;
-  background-color: var(--accent-hover);
+  background-color: var(--color-hudson-blue);
   border-radius: 50%;
 }
 .pulse {

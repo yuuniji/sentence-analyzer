@@ -1,39 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=LXGW+WenKai+TC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=LXGW+WenKai+TC:wght@400;700&display=swap');
 
 :root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-serif: 'LXGW WenKai TC', 'Inter', serif;
+  /* Typography */
+  --font-display: 'LXGW WenKai TC', ui-serif, Georgia, serif;
+  --font-ui: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Layout & Spacing */
+  --radius-card: 24px;
+  --radius-pill: 50px;
+  --radius-btn: 4px;
   
-  /* Light Mode Variables (Default) */
-  --bg-color: #f9fafb;
-  --panel-bg: #ffffff;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
-  --accent-color: #111827;
-  --accent-hover: #374151;
-  --accent-blue: #2563eb;
-  --border-color: #e5e7eb;
-  --border-light: rgba(0, 0, 0, 0.05);
-  --shadow-color: rgba(0, 0, 0, 0.05);
-  --btn-text: #ffffff;
+  /* Light Theme (General Intelligence) */
+  --color-canvas: #fefffc;      /* Cream */
+  --color-surface: #ffffff;     /* Paper */
+  --color-surface-nav: #282834; /* Graphite Night */
+  --color-ink: #171717;         /* Primary text */
+  --color-carbon: #2c2c2c;      /* Secondary text */
+  --color-steel: #646464;       /* Muted text */
+  --color-sage: #dee2de;        /* Soft borders */
+  --color-hudson-blue: #0081c0; /* Accent */
+  --color-slate-cyan: #41a1cf;  /* Secondary Accent */
+  
+  --shadow-subtle: rgba(0, 0, 0, 0.08) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 4px 5px 0px;
+  --shadow-nav: rgba(0, 0, 0, 0.15) 0px 2px 6px 0px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark Mode Variables */
-    --bg-color: #09090b;
-    --panel-bg: #111113;
-    --text-primary: #f4f4f5;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --accent-color: #e4e4e7;
-    --accent-hover: #ffffff;
-    --accent-blue: #3b82f6;
-    --border-color: #27272a;
-    --border-light: rgba(255, 255, 255, 0.04);
-    --shadow-color: rgba(0, 0, 0, 0.2);
-    --btn-text: #000000;
+    /* Dark Theme (Derived) */
+    --color-canvas: #0a0a0b;
+    --color-surface: #111112;
+    --color-surface-nav: #1d1d26;
+    --color-ink: #f0f0f0;
+    --color-carbon: #d4d4d4;
+    --color-steel: #8a8a8a;
+    --color-sage: #27272a;
+    --color-hudson-blue: #41a1cf; 
+    --color-slate-cyan: #0081c0;
+    
+    --shadow-subtle: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px, rgba(0, 0, 0, 0.2) 0px 4px 5px 0px;
+    --shadow-nav: rgba(0, 0, 0, 0.3) 0px 2px 6px 0px;
   }
 }
 
@@ -44,41 +50,40 @@
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-color);
-  color: var(--text-primary);
+  font-family: var(--font-ui);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.5;
+  letter-spacing: -0.01em; /* Tight tracking for UI */
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Bento-Box utility */
+/* Base Card Style (Diagram Card / Elevated Card style) */
 .glass-panel {
-  background: var(--panel-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  position: relative;
-  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-sage);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-subtle);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 3px;
+  background: var(--color-sage);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--color-steel);
 }
 
 /* Animations */
@@ -93,149 +98,164 @@ body {
 
 button {
   cursor: pointer;
-  font-family: var(--font-sans);
+  font-family: var(--font-ui);
   transition: all 0.2s ease;
 }
 
-/* Markdown Content Styling */
+/* ========================================================
+   Markdown Content Styling (Editorial Register)
+   ======================================================== */
 .markdown-body {
-  font-family: var(--font-serif);
-  color: var(--text-primary);
-  line-height: 1.7;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  font-family: var(--font-ui);
+  color: var(--color-carbon);
+  line-height: 1.6;
+  font-size: 15px; /* af 15px */
 }
 
+/* Display Headings */
 .markdown-body h1, .markdown-body h2, .markdown-body h3 {
-  font-family: var(--font-sans);
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--border-light);
-  padding-bottom: 0.3em;
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  line-height: 1.1;
+  letter-spacing: -0.02em; /* Tight tracking for Display */
   margin-top: 1.8em;
-  margin-bottom: 0.8rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  margin-bottom: 0.8em;
+  font-variant-ligatures: none; /* "liga" 0 */
 }
+
+.markdown-body h1 { font-size: 40px; }
+.markdown-body h2 { font-size: 28px; }
+.markdown-body h3 { font-size: 22px; }
 
 .markdown-body p {
-  margin-bottom: 1rem;
-}
-
-.markdown-body table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
-  background: var(--bg-color);
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-}
-
-.markdown-body th, .markdown-body td {
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  text-align: left;
-  font-size: 0.95rem;
-}
-
-.markdown-body th {
-  background: var(--border-light);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  color: var(--text-primary);
+  margin-bottom: 1.2rem;
 }
 
 .markdown-body strong {
-  color: var(--text-primary);
-  font-weight: 700;
+  color: var(--color-ink);
+  font-weight: 600;
 }
 
-/* Details and Summary styling */
-details {
-  background: transparent;
-  border: 1px solid var(--border-color);
+.markdown-body a {
+  color: var(--color-hudson-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Tables */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: var(--color-surface);
   border-radius: 8px;
-  padding: 0;
-  margin-bottom: 1rem;
   overflow: hidden;
+  box-shadow: var(--shadow-subtle);
 }
 
-summary {
-  padding: 14px 18px;
-  font-weight: 500;
-  font-size: 1.05rem;
-  cursor: pointer;
-  list-style: none;
+.markdown-body th, .markdown-body td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-sage);
+  text-align: left;
+  font-size: 15px;
+}
+
+.markdown-body th {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-weight: 600;
+  border-bottom: 2px solid var(--color-sage);
+}
+
+/* ========================================================
+   Floating Tabs Component (Replacing old tabs)
+   ======================================================== */
+.tabs-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.tabs-nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: var(--font-sans);
-  background: var(--bg-color);
-  transition: background 0.2s;
-  color: var(--text-primary);
+  background: var(--color-surface-nav);
+  border-radius: var(--radius-pill);
+  padding: 6px;
+  gap: 4px;
+  width: fit-content;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-nav);
+  overflow-x: auto;
+  max-width: 100%;
 }
 
-summary:hover {
-  background: var(--border-light);
+.tab-button {
+  padding: 6px 16px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #a5afaf; /* Always light on the dark pill nav */
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
-summary::-webkit-details-marker {
+.tab-button:hover {
+  color: #ffffff;
+}
+
+.tab-button.active {
+  background: #ffffff;
+  color: #171717; /* High contrast active state */
+  box-shadow: var(--shadow-subtle);
+}
+
+.tab-pane {
   display: none;
+  animation: fadeIn 0.3s ease;
+  background: var(--color-surface);
+  border: 1px solid var(--color-sage);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-subtle);
 }
 
-summary::after {
-  content: "▾";
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-  transition: transform 0.2s;
+.tab-pane.active {
+  display: block;
 }
 
-details[open] summary::after {
-  transform: rotate(180deg);
-}
-
-details[open] summary {
-  border-bottom: 1px solid var(--border-color);
-}
-
-.details-content {
-  padding: 16px;
-}
-
-/* Radar Interaction Styles */
+/* ========================================================
+   Radar Interaction Styles (Outlined Action Style)
+   ======================================================== */
 .radar-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  background: var(--bg-color);
-  padding: 12px 16px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  margin: 12px 0;
-  transition: border-color 0.3s;
-}
-.radar-box:hover {
-  border-color: var(--text-muted);
+  gap: 16px;
+  background: transparent;
+  padding: 16px;
+  border: 1px solid var(--color-sage);
+  border-radius: var(--radius-card);
+  margin: 24px 0;
+  box-shadow: var(--shadow-subtle);
 }
 .radar-text {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
 }
 .radar-btn {
   flex-shrink: 0;
   background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  padding: 6px 12px;
-  border-radius: 16px;
+  color: var(--color-slate-cyan);
+  border: 1px solid var(--color-slate-cyan);
+  padding: 6px 16px;
+  border-radius: var(--radius-btn);
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 15px;
   transition: all 0.2s;
 }
 .radar-btn:hover {
-  background: var(--text-primary);
-  color: var(--btn-text);
-  transform: translateY(-1px);
+  background: var(--color-slate-cyan);
+  color: #ffffff;
 }

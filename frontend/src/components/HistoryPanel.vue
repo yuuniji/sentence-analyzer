@@ -59,10 +59,11 @@ function formatDate(dateStr) {
   flex-direction: column;
 }
 h3 {
-  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-size: 22px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color-sage);
 }
 .history-list {
   display: flex;
@@ -74,24 +75,24 @@ h3 {
 }
 .history-item {
   padding: 16px;
-  border-radius: 12px;
-  background: var(--bg-color);
-  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  border: 1px solid var(--color-sage);
   cursor: pointer;
   transition: all 0.2s;
 }
 .history-item:hover {
-  border-color: var(--text-muted);
-  box-shadow: 0 4px 12px var(--shadow-color);
+  border-color: var(--color-steel);
+  box-shadow: var(--shadow-subtle);
 }
 .history-item.active {
-  background: var(--panel-bg);
-  border-color: var(--text-secondary);
+  background: var(--color-canvas);
+  border-color: var(--color-ink);
 }
 .record-sentence {
-  font-size: 0.95rem;
+  font-size: 15px;
   margin-bottom: 8px;
-  color: var(--text-primary);
+  color: var(--color-ink);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -101,8 +102,8 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+  font-size: 13px;
+  color: var(--color-steel);
 }
 .meta-right {
   display: flex;
@@ -112,7 +113,7 @@ h3 {
 .delete-btn {
   background: transparent;
   border: none;
-  color: var(--text-secondary);
+  color: var(--color-steel);
   padding: 4px;
   border-radius: 4px;
   display: flex;
@@ -129,15 +130,16 @@ h3 {
   background: rgba(239, 68, 68, 0.1);
 }
 .mode-tag {
-  background: var(--border-color);
-  color: var(--text-secondary);
-  padding: 2px 6px;
-  border-radius: 4px;
+  background: var(--color-canvas);
+  color: var(--color-steel);
+  border: 1px solid var(--color-sage);
+  padding: 2px 8px;
+  border-radius: var(--radius-btn);
 }
 .empty-state {
-  color: var(--text-secondary);
+  color: var(--color-steel);
   text-align: center;
   margin-top: 40px;
-  font-size: 0.95rem;
+  font-size: 15px;
 }
 </style>
