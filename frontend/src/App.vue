@@ -141,10 +141,15 @@ const store = useAnalyzerStore()
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   overflow-y: auto;
   padding-right: 10px;
   padding-bottom: 40px;
+}
+
+/* Prevent flex children from being compressed — they must render at natural height */
+.content-area > * {
+  flex-shrink: 0;
 }
 
 .fade-enter-active,
