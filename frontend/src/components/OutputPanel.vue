@@ -40,11 +40,11 @@ function copyMarkdown() {
 
 <style scoped>
 .output-panel {
-  padding: 24px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  min-height: 300px;
+  gap: 10px;
+  min-height: 200px;
 }
 .header {
   display: flex;

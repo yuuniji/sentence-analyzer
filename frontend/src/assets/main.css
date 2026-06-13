@@ -118,8 +118,8 @@ button {
   color: var(--color-ink);
   line-height: 1.1;
   letter-spacing: -0.02em; /* Tight tracking for Display */
-  margin-top: 1.8em;
-  margin-bottom: 0.8em;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
   font-variant-ligatures: none; /* "liga" 0 */
 }
 
@@ -128,7 +128,7 @@ button {
 .markdown-body h3 { font-size: 22px; }
 
 .markdown-body p {
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .markdown-body strong {
@@ -142,26 +142,25 @@ button {
   text-underline-offset: 2px;
 }
 
-/* Details and Summary styling */
+/* Details and Summary styling — compact & inline */
 details {
   background: transparent;
   padding: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 4px;
 }
 
 summary {
-  padding: 12px 0;
+  padding: 6px 0;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
   list-style: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 6px;
   font-family: var(--font-ui);
-  color: var(--color-ink);
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s;
+  color: var(--color-steel);
+  transition: color 0.2s;
 }
 
 summary:hover {
@@ -172,25 +171,19 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-summary::after {
-  content: "▾";
+summary::before {
+  content: "▸";
+  font-size: 12px;
   color: var(--color-steel);
-  font-size: 1.2rem;
   transition: transform 0.2s;
 }
 
-details[open] summary::after {
-  transform: rotate(180deg);
+details[open] > summary::before {
+  transform: rotate(90deg);
 }
 
-details[open] summary {
-  margin-bottom: 12px;
-}
-
-details details {
-  margin-left: 20px;
-  border-left: 1px solid var(--color-sage);
-  padding-left: 16px;
+details[open] > summary {
+  margin-bottom: 8px;
 }
 
 /* Tables */
@@ -222,8 +215,8 @@ details details {
    Floating Tabs Component (Replacing old tabs)
    ======================================================== */
 .tabs-container {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .tabs-nav {
@@ -233,7 +226,7 @@ details details {
   padding: 6px;
   gap: 4px;
   width: fit-content;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow-nav);
   overflow-x: auto;
   max-width: 100%;
@@ -263,7 +256,7 @@ details details {
 .tab-pane {
   display: none;
   animation: fadeIn 0.3s ease;
-  /* Removed redundant box-in-box styles */
+  padding: 16px 0 0 0; /* Top breathing room, no side padding to stay flush */
 }
 
 .tab-pane.active {

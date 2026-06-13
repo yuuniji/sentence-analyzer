@@ -1,11 +1,11 @@
 <template>
-  <div :class="['glass-panel', 'input-panel', { compact: store.hasOutput }]">
+  <div class="glass-panel input-panel">
     <!-- 篇章导读模式输入区 -->
     <div v-if="store.activeEngine === 'article'" class="input-wrapper animate-fade-in">
       <textarea 
         v-model="store.inputArticle" 
-        :placeholder="store.hasOutput ? '输入新的文章继续分析...' : '在此粘贴整篇外刊文章或文学章节，让 AI 为你进行宏观的主旨提炼、文风分析并扫出潜伏的长难句...'"
-        :rows="store.hasOutput ? 1 : 8"
+        placeholder="在此粘贴整篇外刊文章或文学章节，让 AI 为你进行宏观的主旨提炼、文风分析并扫出潜伏的长难句..."
+        rows="8"
         :disabled="store.isStreaming"
       ></textarea>
     </div>
@@ -15,12 +15,12 @@
       <div class="input-wrapper animate-fade-in">
         <textarea 
           v-model="store.inputSentence" 
-          :placeholder="store.hasOutput ? '输入新的长难句继续解析...' : '请输入需要解析的英语长难句...'"
-          :rows="store.hasOutput ? 1 : 4"
+          placeholder="请输入需要解析的英语长难句..."
+          rows="4"
           :disabled="store.isStreaming"
           class="main-textarea"
         ></textarea>
-        <div v-if="!store.hasOutput" class="hint-container">
+        <div class="hint-container">
           <div class="hint-text">
             💡 提示：保留原文排版可提升解析精度，例如 <code>*斜体*</code> 或 <code>**加粗**</code>
           </div>
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div v-if="showAdvanced && !store.hasOutput" class="advanced-options animate-fade-in">
+      <div v-if="showAdvanced" class="advanced-options animate-fade-in">
         <div class="advanced-field">
           <label>全景上下文</label>
           <textarea 
@@ -53,7 +53,7 @@
     </template>
     
     <div class="controls">
-      <div class="options" v-if="!store.hasOutput">
+      <div class="options">
         <label v-if="store.activeEngine === 'sentence'">
           解析模式：
           <select v-model="store.selectedMode" :disabled="store.isStreaming">
@@ -72,7 +72,6 @@
           </select>
         </label>
       </div>
-      <div v-else class="compact-spacer"></div>
       <button 
         class="analyze-btn" 
         @click="store.analyze" 
@@ -102,40 +101,10 @@ onMounted(() => {
 
 <style scoped>
 .input-panel {
-  padding: 24px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-/* Compact mode: inline bar when results are showing */
-.input-panel.compact {
-  padding: 12px 16px;
-  flex-direction: row;
-  align-items: center;
   gap: 12px;
-}
-
-.input-panel.compact .input-wrapper {
-  flex-grow: 1;
-}
-
-.input-panel.compact textarea {
-  padding: 10px 16px;
-  border-radius: var(--radius-pill);
-  font-size: 14px;
-  min-height: unset;
-  resize: none;
-}
-
-.input-panel.compact .controls {
-  margin-top: 0;
-  flex-shrink: 0;
-}
-
-.input-panel.compact .analyze-btn {
-  padding: 10px 20px;
-  border-radius: var(--radius-pill);
 }
 
 /* Textareas */
@@ -225,9 +194,6 @@ textarea:focus {
   align-items: center;
   margin-top: 8px;
 }
-.compact-spacer {
-  flex-grow: 1;
-}
 .options select {
   background: var(--color-canvas);
   color: var(--color-ink);
@@ -274,4 +240,3 @@ textarea:focus {
   font-size: 0.9rem;
 }
 </style>
-
