@@ -125,13 +125,17 @@ button {
 
 .markdown-body h1 { font-size: 40px; }
 .markdown-body h2 { font-size: 28px; }
-.markdown-body h3 { font-size: 22px; }
+.markdown-body h3 {
+  font-size: 16px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-sage);
+}
 
 .markdown-body p {
   margin-bottom: 0.9rem;
 }
 
-/* Section-header bold text (e.g. 寻找主干：, 梳理枝叶：) */
+/* Section-header bold text */
 .markdown-body strong {
   color: var(--color-ink);
   font-weight: 650;
@@ -148,25 +152,28 @@ button {
 
 /* Ordered & Unordered Lists */
 .markdown-body ol, .markdown-body ul {
-  padding-left: 1.2em;
+  padding-left: 1.4em;
   margin-bottom: 0.8rem;
 }
 
 .markdown-body li {
-  margin-bottom: 0.4em;
-  line-height: 1.6;
+  margin-bottom: 0.6em;
+  line-height: 1.7;
+  padding-left: 0.3em;
 }
 
 .markdown-body li::marker {
-  color: var(--color-steel);
+  color: var(--color-hudson-blue);
+  font-weight: 600;
 }
 
-/* Blockquotes — subtle left accent bar */
+/* Blockquotes — callout card for key insights */
 .markdown-body blockquote {
-  margin: 0.8rem 0;
-  padding: 8px 16px;
+  margin: 1rem 0;
+  padding: 12px 16px;
   border-left: 3px solid var(--color-hudson-blue);
-  background: transparent;
+  background: color-mix(in srgb, var(--color-hudson-blue) 5%, transparent);
+  border-radius: 0 8px 8px 0;
   color: var(--color-carbon);
   font-size: 15px;
 }
