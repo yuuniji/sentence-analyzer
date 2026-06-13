@@ -6,6 +6,7 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   // 状态
   const inputSentence = ref('')
   const inputContext = ref('')
+  const inputTerms = ref('')
   const outputMarkdown = ref('')
   const isStreaming = ref(false)
   const streamProgress = ref(0)
@@ -34,6 +35,21 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
     isStreaming.value = true
     errorMessage.value = ''
     
+    // 解析自定义词汇表
+    let customTermsObj = undefined
+    if (inputTerms.value.trim()) {
+      const terms = {}
+      inputTerms.value.split('\n').forEach(line => {
+        const parts = line.split('=')
+        if (parts.length >= 2) {
+          const key = parts[0].trim()
+          const val = parts.slice(1).join('=').trim()
+          if (key && val) terms[key] = val
+        }
+      })
+      if (Object.keys(terms).length > 0) customTermsObj = terms
+    }
+
     try {
       const response = await fetch('http://127.0.0.1:8000/analyze', {
         method: 'POST',
@@ -42,7 +58,8 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
           sentence: inputSentence.value,
           mode: selectedMode.value,
           model: selectedModel.value,
-          context: inputContext.value || undefined
+          context: inputContext.value || undefined,
+          custom_terms: customTermsObj
         })
       })
       
@@ -150,7 +167,7 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   }
   
   return {
-    inputSentence, inputContext, outputMarkdown, isStreaming, streamProgress,
+    inputSentence, inputContext, inputTerms, outputMarkdown, isStreaming, streamProgress,
     currentRecordId, errorMessage, selectedMode, selectedModel,
     history, historyPage, historyTotal, availableModels,
     hasOutput, canAnalyze,

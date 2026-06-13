@@ -41,6 +41,7 @@ class AnalyzeRequest(BaseModel):
     mode: str = "standard"
     model: str = "standard"
     context: Optional[str] = None
+    custom_terms: Optional[dict] = None
 
 
 @app.post("/analyze")
@@ -63,7 +64,8 @@ async def analyze_sentence(request: AnalyzeRequest):
         sentence=request.sentence,
         trunk_text=trunk,
         mode=request.mode,
-        context_sentences=request.context
+        context_sentences=request.context,
+        custom_terms=request.custom_terms
     )
     
     # 构造提示词

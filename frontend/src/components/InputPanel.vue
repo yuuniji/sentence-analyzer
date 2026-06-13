@@ -12,6 +12,17 @@
       ></textarea>
     </details>
 
+    <details class="context-details">
+      <summary>自定义术语表 (专有名词/自创词解析)</summary>
+      <textarea 
+        v-model="store.inputTerms" 
+        placeholder="按 单词 = 译名 的格式输入，例如：&#10;The Force = 原力&#10;Muggle = 麻瓜"
+        rows="2"
+        class="context-input"
+        :disabled="store.isStreaming"
+      ></textarea>
+    </details>
+
     <div class="input-wrapper">
       <textarea 
         v-model="store.inputSentence" 
