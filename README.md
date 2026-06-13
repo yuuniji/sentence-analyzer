@@ -72,11 +72,8 @@ MacOS 系统通常已经自带了 Python 3.9+（可通过 `python3 -V` 检查，
 # 1. 安装 Homebrew (Mac 必备包管理器)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# 2. 通过 Homebrew 仅安装 Node.js (前端环境) 即可
-brew install node
-
-# 3. 安装后端所需的 Poetry (Python 依赖管理工具)
-curl -sSL https://install.python-poetry.org | python3 -
+# 2. 通过 Homebrew 一键安装 Node.js (前端) 和 Poetry (后端包管理器)
+brew install node poetry
 ```
 
 ### 1. 克隆项目到本地
