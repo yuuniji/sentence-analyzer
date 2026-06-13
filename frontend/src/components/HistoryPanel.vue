@@ -73,20 +73,20 @@ h3 {
   padding-right: 4px;
 }
 .history-item {
-  padding: 12px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid transparent;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   transition: all 0.2s;
 }
 .history-item:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: var(--border-color);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .history-item.active {
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.3);
+  background: var(--border-color);
+  border-color: rgba(255,255,255,0.2);
 }
 .record-sentence {
   font-size: 0.95rem;

@@ -107,48 +107,53 @@ onMounted(() => {
 <style scoped>
 .engine-tabs {
   display: flex;
-  background: rgba(0,0,0,0.2);
-  border-radius: 8px;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 99px; /* Pill shape */
   padding: 4px;
   margin-bottom: 8px;
 }
 .engine-tab {
   flex: 1;
-  padding: 10px;
+  padding: 8px 16px;
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: 99px;
   color: var(--text-secondary);
-  font-weight: 600;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+.engine-tab:hover {
+  color: var(--text-primary);
 }
 .engine-tab.active {
-  background: rgba(255,255,255,0.1);
+  background: var(--border-color);
   color: var(--text-primary);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 .input-panel {
-  padding: 24px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 textarea {
   width: 100%;
-  background: rgba(0,0,0,0.2);
+  background: var(--bg-color);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 16px;
   color: var(--text-primary);
+  font-size: 1.05rem;
   font-family: var(--font-sans);
-  font-size: 1rem;
   resize: vertical;
-  transition: all 0.3s;
+  transition: border-color 0.2s;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 textarea:focus {
   outline: none;
-  border-color: var(--accent-hover);
-  background: rgba(0,0,0,0.3);
+  border-color: rgba(255,255,255,0.2);
 }
 .controls {
   display: flex;
@@ -164,20 +169,23 @@ textarea:focus {
   font-family: inherit;
 }
 .analyze-btn {
-  background: var(--accent-color);
-  color: white;
+  padding: 10px 24px;
+  background: var(--text-primary);
+  color: var(--bg-color);
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 99px;
   font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
 }
 .analyze-btn:hover:not(:disabled) {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
+  background: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255,255,255,0.15);
 }
 .analyze-btn:disabled {
-  opacity: 0.5;
+  background: var(--border-color);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 .error-msg {

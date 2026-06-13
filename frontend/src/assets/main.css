@@ -4,16 +4,18 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-serif: 'LXGW WenKai TC', 'Inter', serif;
   
-  /* Color Palette - Vibrant Dark Mode */
-  --bg-color: #0f172a;
-  --panel-bg: rgba(30, 41, 59, 0.7);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent-color: #3b82f6;
-  --accent-hover: #60a5fa;
-  --border-color: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --shadow-color: rgba(0, 0, 0, 0.5);
+  /* Color Palette - Refero Elegant Dark Mode */
+  --bg-color: #09090b;
+  --panel-bg: #111113;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent-color: #e4e4e7;
+  --accent-hover: #ffffff;
+  --accent-blue: #3b82f6;
+  --border-color: #27272a;
+  --border-light: rgba(255, 255, 255, 0.04);
+  --shadow-color: rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -28,22 +30,32 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.6;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%);
-  background-attachment: fixed;
+  /* Clean, solid dark background */
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glassmorphism utility */
+/* Bento-Box utility */
 .glass-panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 var(--shadow-color);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  box-shadow: 0 4px 24px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional subtle top highlight for 3D feel */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  pointer-events: none;
 }
 
 /* Scrollbar */
@@ -81,20 +93,25 @@ button {
 /* Markdown Content Styling */
 .markdown-body {
   font-family: var(--font-serif);
-  color: var(--text-primary);
+  color: #d4d4d8; /* Softer text for reading */
+  line-height: 1.8;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
 }
 
 .markdown-body h1, .markdown-body h2, .markdown-body h3 {
   font-family: var(--font-sans);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.3em;
-  margin-top: 1.5em;
-  margin-bottom: 16px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.4em;
+  margin-top: 2em;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .markdown-body p {
-  margin-bottom: 16px;
-  font-size: 1.05rem;
+  margin-bottom: 1.2rem;
 }
 
 .markdown-body table {
@@ -113,52 +130,56 @@ button {
 }
 
 .markdown-body th {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--border-light);
   font-family: var(--font-sans);
   font-weight: 600;
+  color: var(--text-primary);
 }
 
 .markdown-body strong {
-  color: var(--accent-hover);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 /* Tabs styles */
 .tabs-container {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  background: rgba(0,0,0,0.1);
+  background: var(--bg-color);
 }
 
 .tabs-nav {
   display: flex;
-  background: rgba(255,255,255,0.03);
+  background: var(--panel-bg);
   border-bottom: 1px solid var(--border-color);
   overflow-x: auto;
+  padding: 8px;
+  gap: 8px;
 }
 
 .tab-button {
-  padding: 12px 20px;
+  padding: 8px 16px;
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  border-bottom: 2px solid transparent;
+  border-radius: 20px;
 }
 
 .tab-button:hover {
   color: var(--text-primary);
-  background: rgba(255,255,255,0.05);
+  background: var(--border-light);
 }
 
 .tab-button.active {
-  color: var(--accent-hover);
-  border-bottom-color: var(--accent-color);
-  background: rgba(59, 130, 246, 0.1);
+  color: var(--text-primary);
+  background: var(--border-color);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .tab-pane {
@@ -173,15 +194,16 @@ button {
 
 /* Details and Summary styling */
 details {
-  background: rgba(255,255,255,0.02);
+  background: transparent;
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 0;
   margin-bottom: 1.5rem;
+  overflow: hidden;
 }
 
 summary {
-  padding: 16px 20px;
+  padding: 18px 24px;
   font-weight: 600;
   font-size: 1.1rem;
   cursor: pointer;
@@ -190,6 +212,14 @@ summary {
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-sans);
+  background: var(--panel-bg);
+  transition: background 0.2s;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+summary:hover {
+  background: var(--border-light);
 }
 
 summary::-webkit-details-marker {
@@ -209,7 +239,6 @@ details[open] summary::after {
 
 details[open] summary {
   border-bottom: 1px solid var(--border-color);
-  background: rgba(255,255,255,0.04);
 }
 
 .details-content {
@@ -222,29 +251,34 @@ details[open] summary {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  background: rgba(59, 130, 246, 0.1);
-  padding: 12px 16px;
-  border-left: 4px solid var(--accent-color);
-  border-radius: 4px;
-  margin: 12px 0;
+  background: var(--bg-color);
+  padding: 16px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  margin: 16px 0;
+  transition: border-color 0.3s;
+}
+.radar-box:hover {
+  border-color: rgba(255,255,255,0.2);
 }
 .radar-text {
   font-family: var(--font-serif);
   font-size: 1.05rem;
+  color: var(--text-primary);
 }
 .radar-btn {
   flex-shrink: 0;
-  background: var(--accent-color);
-  color: white;
-  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   padding: 8px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all 0.2s;
 }
 .radar-btn:hover {
-  background: var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  background: var(--text-primary);
+  color: var(--bg-color);
+  transform: translateY(-1px);
 }

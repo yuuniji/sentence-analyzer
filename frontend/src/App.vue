@@ -50,11 +50,10 @@ const store = useAnalyzerStore()
 }
 
 .logo h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  background: linear-gradient(to right, #60a5fa, #c084fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 .app-main {
