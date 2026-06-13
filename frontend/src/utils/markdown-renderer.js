@@ -61,6 +61,13 @@ export function renderMarkdown(text) {
     return `<summary><span>${inner}</span></summary>`;
   });
 
+  // 处理雷达提取的句子块，变成可点击的联动按钮
+  processedText = processedText.replace(/>\s*【雷达提取】(.*?)(?=\n|$)/g, (match, sentence) => {
+    const cleanSentence = sentence.trim();
+    const escapedSentence = cleanSentence.replace(/"/g, '&quot;');
+    return `> <div class="radar-box"><span class="radar-text">${cleanSentence}</span><button class="radar-btn" data-sentence="${escapedSentence}">一键精读 🎯</button></div>`;
+  });
+
   // 处理大模型可能将 `==` 错误放在 `::: tabs` 同一行的问题
   processedText = processedText.replace(/:::\s*tabs\s*==/g, '::: tabs\n==');
   let lines = processedText.split('\n');

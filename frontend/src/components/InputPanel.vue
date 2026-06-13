@@ -1,7 +1,29 @@
 <template>
   <div class="glass-panel input-panel">
-    <h2>句子输入</h2>
-    <details class="context-details">
+    <div class="engine-tabs">
+      <button 
+        :class="['engine-tab', { active: store.activeEngine === 'sentence' }]"
+        @click="store.activeEngine = 'sentence'"
+      >长难句精读</button>
+      <button 
+        :class="['engine-tab', { active: store.activeEngine === 'article' }]"
+        @click="store.activeEngine = 'article'"
+      >篇章导读</button>
+    </div>
+
+    <!-- 篇章导读模式输入区 -->
+    <div v-if="store.activeEngine === 'article'" class="input-wrapper animate-fade-in">
+      <textarea 
+        v-model="store.inputArticle" 
+        placeholder="在此粘贴整篇外刊文章或文学章节，让 AI 为你进行宏观的主旨提炼、文风分析并扫出潜伏的长难句..."
+        rows="10"
+        :disabled="store.isStreaming"
+      ></textarea>
+    </div>
+
+    <!-- 长难句精读模式输入区 -->
+    <template v-else>
+      <details class="context-details">
       <summary>添加上下文语境 (全景精读模式)</summary>
       <textarea 
         v-model="store.inputContext" 
@@ -34,10 +56,11 @@
         💡 提示：保留书籍原文排版可提升解析精度，例如使用 <code>*斜体*</code> 或 <code>**加粗**</code>
       </div>
     </div>
+    </template>
     
     <div class="controls">
       <div class="options">
-        <label>
+        <label v-if="store.activeEngine === 'sentence'">
           解析模式：
           <select v-model="store.selectedMode" :disabled="store.isStreaming">
             <option value="standard">标准解析</option>
@@ -45,7 +68,7 @@
             <option value="paragraph">段落模式</option>
           </select>
         </label>
-        <label style="margin-left: 12px;">
+        <label :style="{ marginLeft: store.activeEngine === 'sentence' ? '12px' : '0' }">
           模型：
           <select v-model="store.selectedModel" :disabled="store.isStreaming">
             <option v-if="store.availableModels.length === 0" value="">加载中...</option>
@@ -82,15 +105,33 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.engine-tabs {
+  display: flex;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 8px;
+}
+.engine-tab {
+  flex: 1;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.engine-tab.active {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
 .input-panel {
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
 }
 textarea {
   width: 100%;

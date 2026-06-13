@@ -26,8 +26,17 @@ class OutputFormatter:
         "== 导师小结"
     ]
     
-    def validate(self, output: str) -> ValidationResult:
+    def validate(self, output: str, mode: str = "standard") -> ValidationResult:
         issues = []
+        
+        required_tabs = self.REQUIRED_TABS
+        if mode == "article":
+            required_tabs = [
+                "== 核心主旨",
+                "== 情绪与文风",
+                "== 高频生词本",
+                "== 长难句雷达"
+            ]
         
         # 检查 <details> 包裹
         if not output.strip().startswith("<details>"):
@@ -45,8 +54,8 @@ class OutputFormatter:
         if ":::" not in output[output.rfind("::: tabs"):]:
             issues.append("缺少 ::: 结束标记")
         
-        # 检查五大标签页
-        for tab in self.REQUIRED_TABS:
+        # 检查大标签页
+        for tab in required_tabs:
             if tab not in output:
                 issues.append(f"缺少标签页：{tab}")
         

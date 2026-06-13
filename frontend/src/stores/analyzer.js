@@ -4,7 +4,9 @@ import axios from 'axios'
 
 export const useAnalyzerStore = defineStore('analyzer', () => {
   // 状态
+  const activeEngine = ref('sentence') // 'sentence' 或 'article'
   const inputSentence = ref('')
+  const inputArticle = ref('')
   const inputContext = ref('')
   const inputTerms = ref('')
   const outputMarkdown = ref('')
@@ -23,9 +25,13 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   
   // 计算属性
   const hasOutput = computed(() => outputMarkdown.value.length > 0)
-  const canAnalyze = computed(
-    () => inputSentence.value.trim().length > 0 && !isStreaming.value
-  )
+  const canAnalyze = computed(() => {
+    if (activeEngine.value === 'sentence') {
+      return inputSentence.value.trim().length > 0 && !isStreaming.value
+    } else {
+      return inputArticle.value.trim().length > 0 && !isStreaming.value
+    }
+  })
   
   // 改进的 SSE 接收逻辑
   async function analyze() {
@@ -55,10 +61,10 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          sentence: inputSentence.value,
-          mode: selectedMode.value,
+          sentence: activeEngine.value === 'sentence' ? inputSentence.value : inputArticle.value,
+          mode: activeEngine.value === 'sentence' ? selectedMode.value : 'article',
           model: selectedModel.value,
-          context: inputContext.value || undefined,
+          context: activeEngine.value === 'sentence' ? (inputContext.value || undefined) : undefined,
           custom_terms: customTermsObj
         })
       })
@@ -145,11 +151,18 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   }
   
   function loadRecord(record) {
-    inputSentence.value = record.sentence
+    activeEngine.value = record.mode === 'article' ? 'article' : 'sentence'
+    if (activeEngine.value === 'article') {
+      inputArticle.value = record.sentence
+    } else {
+      inputSentence.value = record.sentence
+    }
     inputContext.value = record.context || ''
     outputMarkdown.value = record.output
     currentRecordId.value = record.id
-    selectedMode.value = record.mode || 'standard'
+    if (record.mode !== 'article') {
+      selectedMode.value = record.mode || 'standard'
+    }
   }
   
   async function deleteRecord(id) {
@@ -166,11 +179,18 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
     }
   }
   
+  const switchToSentence = (sentence) => {
+    activeEngine.value = 'sentence'
+    inputSentence.value = sentence
+    outputMarkdown.value = ''
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  
   return {
-    inputSentence, inputContext, inputTerms, outputMarkdown, isStreaming, streamProgress,
+    activeEngine, inputSentence, inputArticle, inputContext, inputTerms, outputMarkdown, isStreaming, streamProgress,
     currentRecordId, errorMessage, selectedMode, selectedModel,
     history, historyPage, historyTotal, availableModels,
     hasOutput, canAnalyze,
-    analyze, loadHistory, loadRecord, deleteRecord, loadModels
+    analyze, loadHistory, loadRecord, deleteRecord, loadModels, switchToSentence
   }
 })

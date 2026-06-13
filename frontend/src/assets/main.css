@@ -215,3 +215,36 @@ details[open] summary {
 .details-content {
   padding: 20px;
 }
+
+/* Radar Interaction Styles */
+.radar-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 12px 16px;
+  border-left: 4px solid var(--accent-color);
+  border-radius: 4px;
+  margin: 12px 0;
+}
+.radar-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+}
+.radar-btn {
+  flex-shrink: 0;
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+.radar-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}

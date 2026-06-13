@@ -5,6 +5,9 @@
 <script setup>
 import { computed, watch, nextTick, onMounted } from 'vue'
 import { renderMarkdown } from '../utils/markdown-renderer'
+import { useAnalyzerStore } from '../stores/analyzer'
+
+const store = useAnalyzerStore()
 
 const props = defineProps({
   content: {
@@ -53,6 +56,16 @@ function buildTabs() {
 }
 
 function handleTabClick(e) {
+  // Handle Radar Button clicks
+  const radarBtn = e.target.closest('.radar-btn')
+  if (radarBtn) {
+    const sentence = radarBtn.getAttribute('data-sentence')
+    if (sentence) {
+      store.switchToSentence(sentence)
+    }
+    return
+  }
+
   if (e.target.classList.contains('tab-button')) {
     const btn = e.target
     const container = btn.closest('.tabs-container')

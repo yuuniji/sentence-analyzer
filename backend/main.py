@@ -70,6 +70,7 @@ async def analyze_sentence(request: AnalyzeRequest):
     
     # 构造提示词
     task_prompt = prompt_engine.build_task_prompt(analysis_request)
+    system_prompt = prompt_engine.get_system_prompt(request.mode)
     
     async def event_generator():
         full_output = ""
@@ -78,7 +79,7 @@ async def analyze_sentence(request: AnalyzeRequest):
         
         try:
             async for chunk in gemini_client.stream_analyze(
-                system_prompt=prompt_engine.system_prompt,
+                system_prompt=system_prompt,
                 task_prompt=task_prompt,
                 mode=request.model
             ):
@@ -86,7 +87,7 @@ async def analyze_sentence(request: AnalyzeRequest):
                 yield {"event": "chunk", "data": json.dumps({"text": chunk})}
             
             # 格式验证
-            validation = formatter.validate(full_output)
+            validation = formatter.validate(full_output, request.mode)
             if not validation.is_valid and validation.fixed_output:
                 full_output = validation.fixed_output
                 yield {"event": "fixed", "data": json.dumps({

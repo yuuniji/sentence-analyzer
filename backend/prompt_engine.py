@@ -28,10 +28,12 @@ class PromptEngine:
             trim_blocks=True,
             lstrip_blocks=True
         )
-        self._system_prompt = self._load_system_prompt()
+        # 不再在此处固定加载系统提示词，而是在请求时加载
+        pass
     
-    def _load_system_prompt(self) -> str:
-        template = self.env.get_template("system_prompt.j2")
+    def get_system_prompt(self, mode: str = "standard") -> str:
+        template_name = "system_prompt_article.j2" if mode == "article" else "system_prompt.j2"
+        template = self.env.get_template(template_name)
         return template.render()
     
     def build_task_prompt(self, request: AnalysisRequest) -> str:
@@ -49,6 +51,3 @@ class PromptEngine:
             custom_terms=request.custom_terms
         )
     
-    @property
-    def system_prompt(self) -> str:
-        return self._system_prompt
