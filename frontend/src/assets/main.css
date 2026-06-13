@@ -142,6 +142,52 @@ button {
   text-underline-offset: 2px;
 }
 
+/* Details and Summary styling */
+details {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+summary {
+  padding: 12px 0;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-ui);
+  color: var(--color-ink);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+summary:hover {
+  color: var(--color-hudson-blue);
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "▾";
+  color: var(--color-steel);
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid var(--color-sage);
+  margin-bottom: 12px;
+}
+
 /* Tables */
 .markdown-body table {
   width: 100%;
@@ -212,11 +258,7 @@ button {
 .tab-pane {
   display: none;
   animation: fadeIn 0.3s ease;
-  background: var(--color-surface);
-  border: 1px solid var(--color-sage);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: var(--shadow-subtle);
+  /* Removed redundant box-in-box styles */
 }
 
 .tab-pane.active {
