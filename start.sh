@@ -30,11 +30,25 @@ echo "  API 文档：http://localhost:8000/docs"
 echo ""
 echo "按 Ctrl+C 停止所有服务"
 
-# 等待退出信号
+# 等待退出信号并优雅关闭
+cleanup() {
+    echo ""
+    echo "正在关闭服务，请稍候..."
+    if [ -n "$FRONTEND_PID" ]; then
+        kill $BACKEND_PID $FRONTEND_PID 2>/dev/null
+        wait $BACKEND_PID $FRONTEND_PID 2>/dev/null
+    else
+        kill $BACKEND_PID 2>/dev/null
+        wait $BACKEND_PID 2>/dev/null
+    fi
+    echo "所有服务已彻底关闭。"
+    exit 0
+}
+
+trap cleanup INT TERM
+
 if [ -z "$FRONTEND_PID" ]; then
-    trap "kill $BACKEND_PID; exit" INT TERM
     wait $BACKEND_PID
 else
-    trap "kill $BACKEND_PID $FRONTEND_PID; exit" INT TERM
     wait
 fi
