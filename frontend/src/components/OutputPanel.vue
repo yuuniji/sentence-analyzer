@@ -44,7 +44,6 @@ function copyMarkdown() {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 200px;
 }
 .header {
   display: flex;

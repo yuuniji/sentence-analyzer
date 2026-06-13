@@ -49,18 +49,12 @@ md.use(MarkdownItContainer, 'tabpane', {
 });
 
 export function renderMarkdown(text) {
-  // 确保 <summary> 和 ::: tabs 之间有空行，否则 markdown-it 不会解析内容
-  let processedText = text.replace(/<\/summary>\s*:::/g, '</summary>\n\n:::');
-  
-  // 处理 <summary> 内部的简易 Markdown (因为 HTML 块内的内容默认不解析)
-  processedText = processedText.replace(/<summary>(.*?)<\/summary>/g, (match, p1) => {
-    let inner = p1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    inner = inner.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    inner = inner.replace(/_(.*?)_/g, '<em>$1</em>');
-    inner = inner.replace(/`(.*?)`/g, '<code>$1</code>');
-    // 使用 <span> 包裹，防止 Flex 的 space-between 布局导致元素被异常分离
-    return `<summary><span>${inner}</span></summary>`;
-  });
+  // 彻底移除无意义的 <details>/<summary> 折叠
+  // 用户已经在输入框看到了句子，不需要再折叠来折叠去
+  processedText = processedText.replace(/<details[^>]*>/g, '');
+  processedText = processedText.replace(/<\/details>/g, '');
+  processedText = processedText.replace(/<summary>(.*?)<\/summary>/g, '');
+
 
   // 处理雷达提取的句子块，变成可点击的联动按钮
   processedText = processedText.replace(/>\s*【雷达提取】(.*?)(?=\n|$)/g, (match, sentence) => {
