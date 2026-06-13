@@ -188,27 +188,36 @@ details[open] > summary {
 
 /* Tables */
 .markdown-body table {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   background: var(--color-surface);
+  border: 1px solid var(--color-sage);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: var(--shadow-subtle);
 }
 
 .markdown-body th, .markdown-body td {
-  padding: 12px 16px;
+  padding: 10px 20px;
   border-bottom: 1px solid var(--color-sage);
   text-align: left;
   font-size: 15px;
+  white-space: normal;
 }
 
 .markdown-body th {
   background: var(--color-canvas);
   color: var(--color-ink);
   font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   border-bottom: 2px solid var(--color-sage);
+}
+
+.markdown-body tr:last-child td {
+  border-bottom: none;
 }
 
 /* ========================================================
