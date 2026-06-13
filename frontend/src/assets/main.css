@@ -186,34 +186,33 @@ details[open] > summary {
   margin-bottom: 8px;
 }
 
-/* Tables */
+/* Tables — compact reference style */
 .markdown-body table {
   width: auto;
   max-width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
-  background: var(--color-surface);
-  border: 1px solid var(--color-sage);
-  border-radius: 8px;
-  overflow: hidden;
+  margin: 0.8rem 0;
+  border-top: 2px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-sage);
 }
 
 .markdown-body th, .markdown-body td {
-  padding: 10px 20px;
+  padding: 6px 16px 6px 0;
   border-bottom: 1px solid var(--color-sage);
   text-align: left;
-  font-size: 15px;
-  white-space: normal;
+  font-size: 14px;
+  line-height: 1.4;
+  vertical-align: top;
 }
 
 .markdown-body th {
-  background: var(--color-canvas);
-  color: var(--color-ink);
-  font-weight: 600;
-  font-size: 13px;
+  color: var(--color-steel);
+  font-weight: 500;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border-bottom: 2px solid var(--color-sage);
+  letter-spacing: 0.05em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-sage);
 }
 
 .markdown-body tr:last-child td {
