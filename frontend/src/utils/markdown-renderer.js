@@ -61,7 +61,7 @@ export function renderMarkdown(text) {
   processedText = processedText.replace(/>\s*【雷达提取】(.*?)(?=\n|$)/g, (match, sentence) => {
     const cleanSentence = sentence.trim();
     const escapedSentence = cleanSentence.replace(/"/g, '&quot;');
-    return `> <div class="radar-box"><span class="radar-text">${cleanSentence}</span><button class="radar-btn" data-sentence="${escapedSentence}">一键精读 🎯</button></div>`;
+    return `> <div class="radar-box"><span class="radar-text">${cleanSentence}</span><button class="radar-btn" data-sentence="${escapedSentence}">一键精读 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 2px;"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></button></div>`;
   });
 
   // 处理大模型可能将 `==` 错误放在 `::: tabs` 同一行的问题

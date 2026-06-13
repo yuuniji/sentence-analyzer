@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    <!-- Floating Pill Navigation -->
     <nav class="floating-nav">
       <div class="nav-links">
         <button 
@@ -11,6 +10,10 @@
           :class="['nav-item', { active: store.activeEngine === 'article' }]"
           @click="store.activeEngine = 'article'"
         >篇章导读</button>
+        <button 
+          :class="['nav-item', { active: store.activeEngine === 'spoken' }]"
+          @click="store.activeEngine = 'spoken'"
+        >口语评估</button>
       </div>
     </nav>
     

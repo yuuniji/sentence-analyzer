@@ -4,13 +4,15 @@ import axios from 'axios'
 
 export const useAnalyzerStore = defineStore('analyzer', () => {
   // 状态
-  const activeEngine = ref('sentence') // 'sentence' 或 'article'
+  const activeEngine = ref('sentence') // 'sentence', 'article', 或 'spoken'
   const inputSentence = ref('')
   const inputArticle = ref('')
   const inputContext = ref('')
   const inputTerms = ref('')
   const outputMarkdown = ref('')
+  const spokenResult = ref(null)
   const isStreaming = ref(false)
+  const isUploading = ref(false)
   const streamProgress = ref(0)
   const currentRecordId = ref(null)
   const errorMessage = ref('')
@@ -24,12 +26,20 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   const historyTotal = ref(0)
   
   // 计算属性
-  const hasOutput = computed(() => outputMarkdown.value.length > 0)
+  const hasOutput = computed(() => {
+    if (activeEngine.value === 'spoken') {
+      return spokenResult.value !== null
+    }
+    return outputMarkdown.value.length > 0
+  })
+  
   const canAnalyze = computed(() => {
     if (activeEngine.value === 'sentence') {
       return inputSentence.value.trim().length > 0 && !isStreaming.value
-    } else {
+    } else if (activeEngine.value === 'article') {
       return inputArticle.value.trim().length > 0 && !isStreaming.value
+    } else {
+      return false // spoken mode uses a separate upload trigger
     }
   })
   
@@ -38,6 +48,7 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
     if (!canAnalyze.value) return
     
     outputMarkdown.value = ''
+    spokenResult.value = null
     isStreaming.value = true
     errorMessage.value = ''
     
@@ -151,16 +162,22 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   }
   
   function loadRecord(record) {
-    activeEngine.value = record.mode === 'article' ? 'article' : 'sentence'
+    activeEngine.value = record.mode === 'article' ? 'article' : (record.mode === 'spoken' ? 'spoken' : 'sentence')
     if (activeEngine.value === 'article') {
       inputArticle.value = record.sentence
+    } else if (activeEngine.value === 'spoken') {
+      try {
+        spokenResult.value = JSON.parse(record.output)
+      } catch (e) {
+        console.error("Failed to parse spoken record output JSON", e)
+      }
     } else {
       inputSentence.value = record.sentence
     }
     inputContext.value = record.context || ''
-    outputMarkdown.value = record.output
+    outputMarkdown.value = activeEngine.value === 'spoken' ? '' : record.output
     currentRecordId.value = record.id
-    if (record.mode !== 'article') {
+    if (record.mode !== 'article' && record.mode !== 'spoken') {
       selectedMode.value = record.mode || 'standard'
     }
   }
@@ -170,6 +187,8 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
       await axios.delete(`http://127.0.0.1:8000/history/${id}`)
       if (currentRecordId.value === id) {
         inputSentence.value = ''
+        inputArticle.value = ''
+        spokenResult.value = null
         outputMarkdown.value = ''
         currentRecordId.value = null
       }
@@ -189,12 +208,36 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
     outputMarkdown.value = ''
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
+  async function uploadAudio(audioBlob) {
+    spokenResult.value = null
+    isUploading.value = true
+    errorMessage.value = ''
+    
+    try {
+      const formData = new FormData()
+      formData.append('audio', audioBlob, 'recording.webm')
+      
+      const response = await axios.post('http://127.0.0.1:8000/upload-audio', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      
+      spokenResult.value = response.data.analysis
+      currentRecordId.value = response.data.record_id
+      loadHistory(1)
+    } catch (err) {
+      errorMessage.value = err.response?.data?.detail || err.message
+      console.error("Audio upload error", err)
+    } finally {
+      isUploading.value = false
+    }
+  }
   
   return {
-    activeEngine, inputSentence, inputArticle, inputContext, inputTerms, outputMarkdown, isStreaming, streamProgress,
+    activeEngine, inputSentence, inputArticle, inputContext, inputTerms, outputMarkdown, spokenResult, isStreaming, isUploading, streamProgress,
     currentRecordId, errorMessage, selectedMode, selectedModel,
     history, historyPage, historyTotal, availableModels,
     hasOutput, canAnalyze,
-    analyze, loadHistory, loadRecord, deleteRecord, loadModels, switchToSentence
+    analyze, loadHistory, loadRecord, deleteRecord, loadModels, switchToSentence, uploadAudio
   }
 })

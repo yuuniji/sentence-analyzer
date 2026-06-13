@@ -1,6 +1,6 @@
 # main.py
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 from pydantic import BaseModel
@@ -121,6 +121,41 @@ async def get_history(page: int = 1, page_size: int = 20):
 async def delete_history(record_id: int):
     await db.delete_record(record_id)
     return {"status": "ok"}
+
+@app.post("/upload-audio")
+async def upload_audio(audio: UploadFile = File(...)):
+    if not audio.filename:
+        raise HTTPException(status_code=400, detail="未提供音频文件")
+    
+    # 读取音频字节
+    audio_bytes = await audio.read()
+    
+    # 确定 MIME 类型
+    mime_type = 'audio/mp4' if audio.filename.endswith('.mp4') or audio.filename.endswith('.m4a') else 'audio/webm'
+    if audio.content_type:
+        mime_type = audio.content_type
+        
+    try:
+        # 调用 Gemini 进行音频转写、纠错与深度分析
+        result = await gemini_client.analyze_audio(audio_bytes=audio_bytes, mime_type=mime_type)
+        
+        # 将转写与剖析结果写入数据库，使用 mode="spoken"
+        record_id = await db.save(
+            sentence=result["original_text"],
+            output=json.dumps(result["analysis"], ensure_ascii=False),
+            mode="spoken"
+        )
+        
+        return {
+            "status": "success",
+            "record_id": record_id,
+            "original_text": result["original_text"],
+            "analysis": result["analysis"]
+        }
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/models")
 async def get_models():

@@ -1,6 +1,6 @@
 <template>
   <div class="glass-panel output-panel" v-if="store.hasOutput">
-    <div class="header">
+    <div class="header" v-if="store.activeEngine !== 'spoken'">
       <div class="header-right">
         <div class="status-indicator" v-if="store.isStreaming">
           <span class="dot pulse"></span> 正在生成中...
@@ -14,7 +14,8 @@
     </div>
     
     <div class="output-content">
-      <TabsRenderer :content="store.outputMarkdown" />
+      <SpokenFeedback v-if="store.activeEngine === 'spoken'" />
+      <TabsRenderer v-else :content="store.outputMarkdown" />
     </div>
   </div>
 </template>
@@ -23,6 +24,7 @@
 import { ref } from 'vue'
 import { useAnalyzerStore } from '../stores/analyzer'
 import TabsRenderer from './TabsRenderer.vue'
+import SpokenFeedback from './SpokenFeedback.vue'
 
 const store = useAnalyzerStore()
 const copied = ref(false)
