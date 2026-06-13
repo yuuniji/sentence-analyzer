@@ -1,21 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=LXGW+WenKai+TC:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=LXGW+WenKai+TC:wght@400;700&display=swap');
 
 :root {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-serif: 'LXGW WenKai TC', 'Inter', serif;
   
-  /* Color Palette - Refero Elegant Dark Mode */
-  --bg-color: #09090b;
-  --panel-bg: #111113;
-  --text-primary: #f4f4f5;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent-color: #e4e4e7;
-  --accent-hover: #ffffff;
-  --accent-blue: #3b82f6;
-  --border-color: #27272a;
-  --border-light: rgba(255, 255, 255, 0.04);
-  --shadow-color: rgba(0, 0, 0, 0.4);
+  /* Light Mode Variables (Default) */
+  --bg-color: #f9fafb;
+  --panel-bg: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --accent-color: #111827;
+  --accent-hover: #374151;
+  --accent-blue: #2563eb;
+  --border-color: #e5e7eb;
+  --border-light: rgba(0, 0, 0, 0.05);
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --btn-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mode Variables */
+    --bg-color: #09090b;
+    --panel-bg: #111113;
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --accent-color: #e4e4e7;
+    --accent-hover: #ffffff;
+    --accent-blue: #3b82f6;
+    --border-color: #27272a;
+    --border-light: rgba(255, 255, 255, 0.04);
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --btn-text: #000000;
+  }
 }
 
 * {
@@ -30,58 +49,46 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.6;
-  /* Clean, solid dark background */
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Bento-Box utility */
 .glass-panel {
   background: var(--panel-bg);
   border: 1px solid var(--border-color);
-  border-radius: 24px;
-  box-shadow: 0 4px 24px var(--shadow-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--shadow-color);
   position: relative;
   overflow: hidden;
 }
 
-/* Optional subtle top highlight for 3D feel */
-.glass-panel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  pointer-events: none;
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--text-muted);
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
+  animation: fadeIn 0.3s ease-out forwards;
 }
 
 button {
@@ -93,40 +100,42 @@ button {
 /* Markdown Content Styling */
 .markdown-body {
   font-family: var(--font-serif);
-  color: #d4d4d8; /* Softer text for reading */
-  line-height: 1.8;
+  color: var(--text-primary);
+  line-height: 1.7;
   font-size: 1.05rem;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .markdown-body h1, .markdown-body h2, .markdown-body h3 {
   font-family: var(--font-sans);
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-light);
-  padding-bottom: 0.4em;
-  margin-top: 2em;
-  margin-bottom: 1rem;
+  padding-bottom: 0.3em;
+  margin-top: 1.8em;
+  margin-bottom: 0.8rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .markdown-body p {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .markdown-body table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 16px;
-  background: rgba(0,0,0,0.2);
-  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: var(--bg-color);
+  border-radius: 6px;
   overflow: hidden;
+  border: 1px solid var(--border-color);
 }
 
 .markdown-body th, .markdown-body td {
-  padding: 12px;
+  padding: 10px;
   border: 1px solid var(--border-color);
   text-align: left;
+  font-size: 0.95rem;
 }
 
 .markdown-body th {
@@ -138,84 +147,32 @@ button {
 
 .markdown-body strong {
   color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Tabs styles */
-.tabs-container {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  overflow: hidden;
-  background: var(--bg-color);
-}
-
-.tabs-nav {
-  display: flex;
-  background: var(--panel-bg);
-  border-bottom: 1px solid var(--border-color);
-  overflow-x: auto;
-  padding: 8px;
-  gap: 8px;
-}
-
-.tab-button {
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: 20px;
-}
-
-.tab-button:hover {
-  color: var(--text-primary);
-  background: var(--border-light);
-}
-
-.tab-button.active {
-  color: var(--text-primary);
-  background: var(--border-color);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-}
-
-.tab-pane {
-  padding: 20px;
-  display: none;
-  animation: fadeIn 0.3s ease;
-}
-
-.tab-pane.active {
-  display: block;
+  font-weight: 700;
 }
 
 /* Details and Summary styling */
 details {
   background: transparent;
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   overflow: hidden;
 }
 
 summary {
-  padding: 18px 24px;
-  font-weight: 600;
-  font-size: 1.1rem;
+  padding: 14px 18px;
+  font-weight: 500;
+  font-size: 1.05rem;
   cursor: pointer;
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-sans);
-  background: var(--panel-bg);
+  background: var(--bg-color);
   transition: background 0.2s;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
 }
 
 summary:hover {
@@ -242,7 +199,7 @@ details[open] summary {
 }
 
 .details-content {
-  padding: 20px;
+  padding: 16px;
 }
 
 /* Radar Interaction Styles */
@@ -250,20 +207,20 @@ details[open] summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   background: var(--bg-color);
-  padding: 16px 20px;
+  padding: 12px 16px;
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  margin: 16px 0;
+  border-radius: 8px;
+  margin: 12px 0;
   transition: border-color 0.3s;
 }
 .radar-box:hover {
-  border-color: rgba(255,255,255,0.2);
+  border-color: var(--text-muted);
 }
 .radar-text {
   font-family: var(--font-serif);
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text-primary);
 }
 .radar-btn {
@@ -271,14 +228,14 @@ details[open] summary {
   background: transparent;
   color: var(--text-primary);
   border: 1px solid var(--border-color);
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 6px 12px;
+  border-radius: 16px;
   font-weight: 500;
   font-size: 0.85rem;
   transition: all 0.2s;
 }
 .radar-btn:hover {
   background: var(--text-primary);
-  color: var(--bg-color);
+  color: var(--btn-text);
   transform: translateY(-1px);
 }

@@ -72,15 +72,17 @@ h2 {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.1);
+  background: var(--bg-color);
   border: 1px solid var(--border-color);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   padding: 6px 12px;
-  border-radius: 6px;
+  border-radius: 8px;
+
   font-size: 0.9rem;
 }
 .copy-btn:hover {
-  background: rgba(255,255,255,0.2);
+  background: var(--border-light);
+  color: var(--text-primary);
 }
 .copy-btn.copied {
   background: rgba(16, 185, 129, 0.2);

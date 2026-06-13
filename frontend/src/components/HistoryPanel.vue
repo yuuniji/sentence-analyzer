@@ -81,12 +81,12 @@ h3 {
   transition: all 0.2s;
 }
 .history-item:hover {
-  border-color: rgba(255,255,255,0.15);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-color: var(--text-muted);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 .history-item.active {
-  background: var(--border-color);
-  border-color: rgba(255,255,255,0.2);
+  background: var(--panel-bg);
+  border-color: var(--text-secondary);
 }
 .record-sentence {
   font-size: 0.95rem;
@@ -129,7 +129,8 @@ h3 {
   background: rgba(239, 68, 68, 0.1);
 }
 .mode-tag {
-  background: rgba(0,0,0,0.3);
+  background: var(--border-color);
+  color: var(--text-secondary);
   padding: 2px 6px;
   border-radius: 4px;
 }
