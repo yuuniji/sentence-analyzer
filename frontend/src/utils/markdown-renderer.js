@@ -56,6 +56,7 @@ export function renderMarkdown(text) {
   processedText = processedText.replace(/<summary>(.*?)<\/summary>/g, (match, p1) => {
     let inner = p1.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     inner = inner.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    inner = inner.replace(/_(.*?)_/g, '<em>$1</em>');
     inner = inner.replace(/`(.*?)`/g, '<code>$1</code>');
     // 使用 <span> 包裹，防止 Flex 的 space-between 布局导致元素被异常分离
     return `<summary><span>${inner}</span></summary>`;

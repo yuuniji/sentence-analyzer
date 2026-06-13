@@ -1,7 +1,6 @@
 <template>
   <div class="glass-panel output-panel" v-if="store.hasOutput">
     <div class="header">
-      <h2>解析结果</h2>
       <div class="header-right">
         <div class="status-indicator" v-if="store.isStreaming">
           <span class="dot pulse"></span> 正在生成中...
@@ -49,7 +48,7 @@ function copyMarkdown() {
 }
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 h2 {
