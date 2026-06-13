@@ -64,14 +64,16 @@ sentence-analyzer/
 如果未来你换了新的 MacBook，或者需要在全新的电脑上运行此项目，请严格按照以下步骤操作：
 
 ### 0. 基础工具安装 (仅限全新 Mac)
+MacOS 系统通常已经自带了 Python 3.9+（可通过 `python3 -V` 检查，如 `Python 3.9.6`），这已经完美满足本项目的运行要求，无需额外折腾安装 Python！
+
 如果你的新电脑还没安装基础开发工具，请打开终端 (Terminal) 执行以下命令：
 
 ```bash
 # 1. 安装 Homebrew (Mac 必备包管理器)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# 2. 通过 Homebrew 安装 Node.js (前端环境) 和 Python (后端环境)
-brew install node python@3.11
+# 2. 通过 Homebrew 仅安装 Node.js (前端环境) 即可
+brew install node
 
 # 3. 安装后端所需的 Poetry (Python 依赖管理工具)
 curl -sSL https://install.python-poetry.org | python3 -
@@ -96,9 +98,7 @@ echo "GEMINI_API_KEY=AIzaSyYourApiKeyHere..." > .env
 **安装后端依赖：**
 ```bash
 cd backend
-# 告诉 Poetry 使用系统安装的 Python 3.11
-poetry env use python3.11
-# 安装所有 Python 依赖
+# 直接使用系统自带的 Python 安装依赖
 poetry install
 cd ..
 ```
