@@ -1,16 +1,5 @@
 <template>
   <div class="glass-panel input-panel">
-    <div class="engine-tabs">
-      <button 
-        :class="['engine-tab', { active: store.activeEngine === 'sentence' }]"
-        @click="store.activeEngine = 'sentence'"
-      >长难句精读</button>
-      <button 
-        :class="['engine-tab', { active: store.activeEngine === 'article' }]"
-        @click="store.activeEngine = 'article'"
-      >篇章导读</button>
-    </div>
-
     <!-- 篇章导读模式输入区 -->
     <div v-if="store.activeEngine === 'article'" class="input-wrapper animate-fade-in">
       <textarea 
@@ -116,36 +105,6 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-/* Engine Tabs (Floating Pill Navigation) */
-.engine-tabs {
-  display: flex;
-  background: var(--color-surface-nav);
-  border-radius: var(--radius-pill);
-  padding: 6px;
-  gap: 4px;
-  width: fit-content;
-  margin-bottom: 8px;
-  box-shadow: var(--shadow-nav);
-}
-.engine-tab {
-  padding: 6px 16px;
-  background: transparent;
-  border: none;
-  border-radius: var(--radius-pill);
-  color: #a5afaf;
-  font-weight: 500;
-  font-size: 15px;
-  transition: all 0.2s ease;
-}
-.engine-tab:hover {
-  color: #ffffff;
-}
-.engine-tab.active {
-  background: #ffffff;
-  color: #171717;
-  box-shadow: var(--shadow-subtle);
 }
 
 /* Textareas */

@@ -1,13 +1,25 @@
 <template>
   <div class="app-container">
-    <header class="app-header">
-      <div class="logo">
-        <h1>🔍 英语长难句智能解析</h1>
+    <!-- Floating Pill Navigation -->
+    <nav class="floating-nav">
+      <div class="nav-logo" title="Sentence Analyzer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       </div>
-      <div class="header-actions">
-        <!-- Settings btn could go here -->
+      <div class="nav-links">
+        <button 
+          :class="['nav-item', { active: store.activeEngine === 'sentence' }]"
+          @click="store.activeEngine = 'sentence'"
+        >长难句精读</button>
+        <button 
+          :class="['nav-item', { active: store.activeEngine === 'article' }]"
+          @click="store.activeEngine = 'article'"
+        >篇章导读</button>
       </div>
-    </header>
+      <div class="nav-actions">
+         <div class="status-dot"></div>
+         <span class="status-text">Ready</span>
+      </div>
+    </nav>
     
     <main class="app-main">
       <div class="sidebar">
@@ -36,24 +48,81 @@ const store = useAnalyzerStore()
 .app-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 80px 20px 20px 20px; /* Added top padding to account for floating nav */
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.app-header {
+/* Floating Pill Navigation */
+.floating-nav {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: var(--color-surface-nav); /* Graphite Night */
+  border-radius: var(--radius-pill);
+  padding: 8px 12px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 0 30px 0;
+  gap: 16px;
+  box-shadow: var(--shadow-nav);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.logo h1 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
+.nav-logo {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-item {
+  background: transparent;
+  border: none;
+  color: #a5afaf; /* Ash */
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s;
+}
+
+.nav-item:hover {
+  color: #ffffff;
+}
+
+.nav-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #34d399; /* Green dot indicating system ready */
+  border-radius: 50%;
+}
+
+.status-text {
+  color: #a5afaf;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .app-main {
