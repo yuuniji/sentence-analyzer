@@ -182,6 +182,10 @@ export const useAnalyzerStore = defineStore('analyzer', () => {
   const switchToSentence = (sentence) => {
     activeEngine.value = 'sentence'
     inputSentence.value = sentence
+    // 将篇章内容自动复制到上下文，保留宏观关联分析
+    if (inputArticle.value.trim()) {
+      inputContext.value = inputArticle.value
+    }
     outputMarkdown.value = ''
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }

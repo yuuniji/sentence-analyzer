@@ -88,11 +88,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useAnalyzerStore } from '../stores/analyzer'
 
 const store = useAnalyzerStore()
 const showAdvanced = ref(false)
+
+// 监测上下文和术语表，若有内容（如从历史记录载入），则自动展开高级选项面板
+watch(
+  [() => store.inputContext, () => store.inputTerms],
+  ([newCtx, newTerms]) => {
+    if ((newCtx && newCtx.trim()) || (newTerms && newTerms.trim())) {
+      showAdvanced.value = true
+    }
+  },
+  { immediate: true }
+)
 
 onMounted(() => {
   store.loadModels()
